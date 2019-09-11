@@ -1,0 +1,17 @@
+<?php
+$summary = $showSummary ? $site->summary() : null;
+?>
+    <div class="medium-6 cell">
+        <div class="callout grid-x">
+            <h3><?php echo $this->hyperlink($site->title(), $site->siteUrl(), ['class' => 'site-link']); ?></h3>
+            <?php if ($summary): ?>
+                <p class="site-summary"><?php echo nl2br($this->escapeHtml($summary)); ?></p>
+            <?php endif; ?>
+            <?php $items = $this->api()->search('items', ['site'=>$site,'limit'=>'4'])->getContent(); ?>
+            <?php foreach ($items as $item): ?>
+                <div class="cell large-6 medium-6">
+                    <?php echo $item->linkRaw($this->thumbnail($item, 'square')); ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
